@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     2018. 9. 19. 오전 9:19:03                                                        
+
+     project    
+     description
+                   
+     USER                                                                
+     ====================================================================== -->
+<project name="p0919" default="main" basedir=".">
+	<description>
+            description
+    </description>
+		<property name = "Name" value="Ant Test"/>
+		<property name = "name" value="anttest"/>
+		<property name = "groupid" value="p0919"/>
+		<property name = "project.version" value="1.0.0"/>
+			
+	    <property name = "src.dir" value="src"/>
+		<property name = "build.dir" value="build"/>
+		<property name = "classes.dir" value="${build.dir}/classes"/>
+		<property name="jar.dir" value="${build.dir}/jar"/>
+
+		    	
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="clean">
+        <delete dir = "${build.dir}"/>
+    </target>
+	<target name="init">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${classes.dir}"/>
+	</target>
+	<target name="compile" depends="init">
+	        <javac srcdir = "${src.dir}" destdir="${classes.dir}" includeantruntime = "false">
+	        </javac>
+	</target>
+	<target name="jar" depends="compile">
+		<jar destfile = "${jar.dir}/${name}-${project.version}.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="p0919.Helloworld"></attribute>
+			</manifest>
+		</jar>
+	</target>
+	<target name = "run" depends="compile">
+		<java jar="${jar.dir}/${name}-${project.version}.jar" fork="true">
+		</java>
+	</target>
+	<target name="main" depends="clean,jar">
+	    </target>
+	
+</project>
